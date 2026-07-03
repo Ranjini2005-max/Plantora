@@ -1,95 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Plantora</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Optional for later -->
+    <!-- <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon"> -->
 </head>
 
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation -->
     <nav class="navbar">
         <h2 class="logo">🌿 Plantora</h2>
 
-        <button class="login-btn">
+        <button id="navBtn" class="login-btn">
             Login
         </button>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Main App Container -->
+    <main class="app-layout">
 
-        <div class="hero-text">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+    </aside>
 
-            <h1>Plantora</h1>
-
-            <h2>
-                Smart Plant Disease Detection &
-                Care Assistant
-            </h2>
-
-            <p>
-                Upload a plant leaf image and let Artificial Intelligence
-                detect diseases instantly with accurate treatment suggestions.
-            </p>
-
-            <button id="startBtn">
-                Get Started
-            </button>
-
-        </div>
-
-        <div class="hero-image">
-
-            🌿
-
-        </div>
-
+    <!-- Page Content -->
+    <section id="app">
     </section>
-    <!-- Features Section -->
 
-<section class="features">
+</main>
 
-    <h2>Why Choose Plantora?</h2>
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
 
-    <div class="feature-container">
+        <div class="modal-content">
 
-        <div class="card">
-            <div class="icon">🔍</div>
-            <h3>AI Detection</h3>
-            <p>
-                Upload a leaf image and identify diseases in seconds.
-            </p>
-        </div>
+            <span class="close-btn" id="closeModal">&times;</span>
 
-        <div class="card">
-            <div class="icon">💊</div>
-            <h3>Treatment</h3>
-            <p>
-                Get treatment suggestions and preventive measures.
-            </p>
-        </div>
+            <!-- Login Form -->
+            <div id="loginForm">
 
-        <div class="card">
-            <div class="icon">📈</div>
-            <h3>History</h3>
-            <p>
-                Save and review all your previous plant health reports.
-            </p>
+                <h2>Welcome Back 🌿</h2>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Email"
+                >
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                >
+
+                <button id="loginBtn">
+                    Login
+                </button>
+
+                <p>
+                    Don't have an account?
+                    <a href="#" id="showSignup">Sign Up</a>
+                </p>
+
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" style="display: none;">
+
+                <h2>Create Account 🌱</h2>
+
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Full Name"
+                >
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Email"
+                >
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Password"
+                >
+
+                <button id="signupBtn">
+                    Create Account
+                </button>
+
+                <p>
+                    Already have an account?
+                    <a href="#" id="showLogin">Login</a>
+                </p>
+
+            </div>
+
         </div>
 
     </div>
 
-</section>
-
-<script src="script.js"></script>
+    <script type="module" src="js/script.js"></script>
 
 </body>
+
 </html>
