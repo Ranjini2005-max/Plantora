@@ -1,3 +1,4 @@
+import { showPage } from "../router.js";
 const sidebar = document.getElementById("sidebar");
 
 export function showSidebar() {
@@ -21,6 +22,12 @@ export function showSidebar() {
         </ul>
 
     `;
+    document.getElementById("plantsLink").addEventListener("click", () => {
+    showPage("plants");
+});
+document.getElementById("homeLink").addEventListener("click", () => {
+    showPage("home");
+});
 
 }
 
