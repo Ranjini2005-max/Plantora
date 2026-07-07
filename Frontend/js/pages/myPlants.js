@@ -1,6 +1,10 @@
-import { addPlant } from "../services/plantsService.js";
+import {
+    addPlant,
+    getPlants,
+    deletePlant
+} from "../services/plantsService.js";
 
-export function loadMyPlants() {
+export async function loadMyPlants() {
 
     const app = document.getElementById("app");
 
@@ -13,20 +17,72 @@ export function loadMyPlants() {
                 + Add Plant
             </button>
 
-            <div id="plantsContainer">
-                <p>No plants added yet.</p>
-            </div>
+            <div id="plantForm"></div>
+
+            <hr>
+
+            <div id="plantsContainer"></div>
 
         </section>
     `;
+    const plants = await getPlants();
+    const plantsContainer = document.getElementById("plantsContainer");
 
+    plantsContainer.innerHTML = "";
+
+    plants.forEach((plant) => {
+
+        plantsContainer.innerHTML += `
+            <div class="plant-card">
+
+                <h3>🌱 ${plant.name}</h3>
+
+                <button class="editPlantBtn" data-id="${plant.id}">
+                    Edit
+                </button>
+
+                <button class="deletePlantBtn" data-id="${plant.id}">
+                    Delete
+                </button>
+
+            </div>
+        `;
+
+    });
+    document.querySelectorAll(".deletePlantBtn").forEach((button) => {
+
+    button.addEventListener("click", async () => {
+
+        const confirmDelete = confirm("Are you sure you want to delete this plant?");
+
+if (!confirmDelete) {
+    return;
+}
+        await deletePlant(button.dataset.id);
+
+loadMyPlants();
+
+    });
+
+});
+
+    console.table(plants);
     document.getElementById("addPlantBtn").addEventListener("click", () => {
+        const plantForm = document.getElementById("plantForm");
 
-        document.getElementById("plantsContainer").innerHTML = `
+        if (plantForm.innerHTML !== "") {
+            return;
+        }
+
+        document.getElementById("plantForm").innerHTML = `
             <input type="text" id="plantName" placeholder="Plant Name">
 
             <button id="savePlantBtn">
                 Save Plant
+            </button>
+
+            <button id="cancelPlantBtn">
+                Cancel
             </button>
         `;
 
@@ -48,17 +104,20 @@ export function loadMyPlants() {
                 };
 
                 await addPlant(plant);
+                loadMyPlants();
+                return;
 
-                alert("Plant saved successfully!");
-
-                document.getElementById("plantsContainer").innerHTML = `
-                    <h3>${plantName}</h3>
-                `;
+                document.getElementById("plantForm").innerHTML = "";
 
             } catch (error) {
                 console.error(error);
                 alert(error.message);
             }
+
+        });
+        document.getElementById("cancelPlantBtn").addEventListener("click", () => {
+
+            document.getElementById("plantForm").innerHTML = "";
 
         });
 

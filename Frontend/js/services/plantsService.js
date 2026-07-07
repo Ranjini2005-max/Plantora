@@ -2,7 +2,11 @@ import { db } from "../firebase.js";
 
 import {
     collection,
-    addDoc
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const plantsCollection = collection(db, "plants");
@@ -22,5 +26,20 @@ export async function addPlant(plant) {
         console.error("Firestore Error:", error);
 
     }
+
+}
+export async function getPlants() {
+
+    const snapshot = await getDocs(plantsCollection);
+
+    return snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
+}
+export async function deletePlant(id) {
+
+    await deleteDoc(doc(db, "plants", id));
 
 }
