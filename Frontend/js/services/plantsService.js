@@ -4,6 +4,7 @@ import {
     collection,
     addDoc,
     getDocs,
+    getDoc,
     deleteDoc,
     doc,
     updateDoc
@@ -42,4 +43,26 @@ export async function deletePlant(id) {
 
     await deleteDoc(doc(db, "plants", id));
 
+}
+export async function getPlant(id) {
+
+    const docRef = doc(db, "plants", id);
+
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+
+    return {
+        id: docSnap.id,
+        ...docSnap.data()
+    };
+
+    }
+
+    return null;
+
+}
+export async function editPlant(id, plant) {
+    const docRef = doc(db, "plants", id);
+
+    await updateDoc(docRef, plant);
 }

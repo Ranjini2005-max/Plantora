@@ -1,9 +1,22 @@
 import {
     addPlant,
     getPlants,
-    deletePlant
+    deletePlant,
+    getPlant,
+    editPlant as updatePlant
 } from "../services/plantsService.js";
+let editingPlantId = null;
+async function editPlant(id) {
 
+    const plant = await getPlant(id);
+    editingPlantId = id;
+    document.getElementById("addPlantBtn").click();
+    document.getElementById("plantName").value = plant.name;
+    document.getElementById("savePlantBtn").textContent = "Update Plant";
+
+    console.log(plant);
+
+}
 export async function loadMyPlants() {
 
     const app = document.getElementById("app");
@@ -65,6 +78,15 @@ loadMyPlants();
     });
 
 });
+document.querySelectorAll(".editPlantBtn").forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        editPlant(button.dataset.id);
+
+    });
+
+});
 
     console.table(plants);
     document.getElementById("addPlantBtn").addEventListener("click", () => {
@@ -103,7 +125,16 @@ loadMyPlants();
                     name: plantName
                 };
 
-                await addPlant(plant);
+                if (editingPlantId) {
+
+    await updatePlant(editingPlantId, plant);
+
+    } else {
+
+        await addPlant(plant);
+
+    }
+    editingPlantId = null;
                 loadMyPlants();
                 return;
 
