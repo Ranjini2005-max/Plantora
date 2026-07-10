@@ -26,13 +26,13 @@ export async function loadMyPlants() {
 
             <h1>🌱 My Plants</h1>
 
-            <button id="addPlantBtn">
+            <button id="addPlantBtn" class="btn">
                 + Add Plant
             </button>
 
             <div id="plantForm"></div>
 
-            <hr>
+            
 
             <div id="plantsContainer"></div>
 
@@ -50,11 +50,11 @@ export async function loadMyPlants() {
 
                 <h3>🌱 ${plant.name}</h3>
 
-                <button class="editPlantBtn" data-id="${plant.id}">
+                <button class="editPlantBtn btn" data-id="${plant.id}">
                     Edit
                 </button>
 
-                <button class="deletePlantBtn" data-id="${plant.id}">
+                <button class="deletePlantBtn btn" data-id="${plant.id}">
                     Delete
                 </button>
 
@@ -97,15 +97,19 @@ document.querySelectorAll(".editPlantBtn").forEach((button) => {
         }
 
         document.getElementById("plantForm").innerHTML = `
-            <input type="text" id="plantName" placeholder="Plant Name">
+            <div class="plant-form-row">
 
-            <button id="savePlantBtn">
-                Save Plant
-            </button>
+    <input type="text" id="plantName" placeholder="Plant Name">
 
-            <button id="cancelPlantBtn">
-                Cancel
-            </button>
+    <button id="savePlantBtn" class="btn">
+        Save Plant
+    </button>
+
+    <button id="cancelPlantBtn" class="btn">
+        Cancel
+    </button>
+
+</div>
         `;
 
         document.getElementById("savePlantBtn").addEventListener("click", async () => {
