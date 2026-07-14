@@ -430,3 +430,72 @@ body{
     border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
 }
+/* ---------- Scan Page ---------- */
+
+.scan-page{
+    max-width:800px;
+    margin:40px auto;
+    padding:20px;
+    text-align:center;
+}
+
+.scan-page h1{
+    margin-bottom:10px;
+}
+
+.scan-subtitle{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.upload-box{
+    border:2px dashed #4CAF50;
+    border-radius:12px;
+    padding:30px;
+    background:#f8fff8;
+}
+
+.upload-label{
+    display:inline-block;
+    padding:12px 24px;
+    background:#4CAF50;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.upload-label:hover{
+    background:#388e3c;
+}
+
+#imagePreview{
+    margin-top:20px;
+}
+
+#imagePreview img{
+    max-width:300px;
+    border-radius:10px;
+}
+
+.scan-btn{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:8px;
+    background:#2E7D32;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.scan-btn:hover{
+    background:#1B5E20;
+}
+
+.scan-result{
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+    background:#f4f4f4;
+}

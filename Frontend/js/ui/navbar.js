@@ -28,6 +28,9 @@ export function showSidebar() {
 document.getElementById("homeLink").addEventListener("click", () => {
     showPage("home");
 });
+document.getElementById("scanLink").addEventListener("click", () => {
+    showPage("scan");
+});
 
 }
 

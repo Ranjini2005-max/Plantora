@@ -14,7 +14,7 @@ export function loadHome() {
 
             <div class="dashboard-grid">
 
-                <div class="card">
+                <div class="card" onclick="alert('Clicked')">
                     📷
                     <h3>Scan Disease</h3>
                 </div>
@@ -34,5 +34,4 @@ export function loadHome() {
         </section>
 
     `;
-
 }
