@@ -76,23 +76,22 @@ export function loadScan() {
         scanResult.innerHTML = `
             <p>🔄 Scanning your plant...</p>
         `;
-        setTimeout(() => {
+        const formData = new FormData();
+
+formData.append("image", plantImage.files[0]);
+
+fetch("http://127.0.0.1:5000/predict", {
+    method: "POST",
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
 
     scanResult.innerHTML = `
-
-        <h3>Scan Result</h3>
-
-        <p><strong>Plant:</strong> Tomato</p>
-
-        <p><strong>Disease:</strong> Early Blight</p>
-
-        <p><strong>Confidence:</strong> 97%</p>
-
-        <p><strong>Recommendation:</strong> Apply a copper-based fungicide and remove infected leaves.</p>
-
+        <h3>${data.message}</h3>
     `;
 
-}, 2000);
+});
 
     });
 }
