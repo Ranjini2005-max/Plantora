@@ -499,3 +499,6 @@ body{
     border-radius:10px;
     background:#f4f4f4;
 }
+button {
+    cursor: pointer;
+}

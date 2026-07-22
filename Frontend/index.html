@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,45 +10,89 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Optional for later -->
-    <!-- <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon"> -->
 </head>
+
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <h2 class="logo">🌿 Plantora</h2>
 
-        <button id="navBtn" class="login-btn">
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <h2 class="logo">
+            🌿 Plantora
+        </h2>
+
+
+        <button 
+            type="button"
+            id="navBtn"
+            class="login-btn">
+
             Login
+
         </button>
+
+
     </nav>
 
+
+
+
     <!-- Main App Container -->
+
     <main class="app-layout">
 
-    <!-- Sidebar -->
-    <aside id="sidebar">
-    </aside>
 
-    <!-- Page Content -->
-    <section id="app">
-    </section>
+        <aside id="sidebar">
 
-</main>
+        </aside>
+
+
+
+        <section id="app">
+
+        </section>
+
+
+
+    </main>
+
+
+
+
 
     <!-- Authentication Modal -->
+
     <div class="modal" id="authModal">
+
 
         <div class="modal-content">
 
-            <span class="close-btn" id="closeModal">&times;</span>
+
+            <span 
+                class="close-btn" 
+                id="closeModal">
+
+                &times;
+
+            </span>
+
+
+
+
 
             <!-- Login Form -->
+
             <div id="loginForm">
 
-                <h2>Welcome Back 🌿</h2>
+
+                <h2>
+                    Welcome Back 🌿
+                </h2>
+
+
 
                 <input
                     type="email"
@@ -55,27 +100,55 @@
                     placeholder="Email"
                 >
 
+
+
                 <input
                     type="password"
                     id="loginPassword"
                     placeholder="Password"
                 >
 
-                <button id="loginBtn">
+
+
+                <button
+                    type="button"
+                    id="loginBtn">
+
                     Login
+
                 </button>
 
+
+
                 <p>
+
                     Don't have an account?
-                    <a href="#" id="showSignup">Sign Up</a>
+
+                    <a href="#" id="showSignup">
+                        Sign Up
+                    </a>
+
                 </p>
+
 
             </div>
 
-            <!-- Signup Form -->
-            <div id="signupForm" style="display: none;">
 
-                <h2>Create Account 🌱</h2>
+
+
+
+
+
+            <!-- Signup Form -->
+
+            <div id="signupForm" style="display:none;">
+
+
+                <h2>
+                    Create Account 🌱
+                </h2>
+
+
 
                 <input
                     type="text"
@@ -83,11 +156,15 @@
                     placeholder="Full Name"
                 >
 
+
+
                 <input
                     type="email"
                     id="signupEmail"
                     placeholder="Email"
                 >
+
+
 
                 <input
                     type="password"
@@ -95,22 +172,50 @@
                     placeholder="Password"
                 >
 
-                <button id="signupBtn">
+
+
+                <button
+                    type="button"
+                    id="signupBtn">
+
                     Create Account
+
                 </button>
 
+
+
+
                 <p>
+
                     Already have an account?
-                    <a href="#" id="showLogin">Login</a>
+
+                    <a href="#" id="showLogin">
+                        Login
+                    </a>
+
                 </p>
+
 
             </div>
 
+
+
         </div>
+
 
     </div>
 
-    <script type="module" src="js/script.js"></script>
+
+
+
+
+    <script 
+        type="module"
+        src="js/script.js">
+
+    </script>
+
+
 
 </body>
 

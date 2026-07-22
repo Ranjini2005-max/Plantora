@@ -2,15 +2,19 @@ const app = document.getElementById("app");
 
 export function loadScan() {
 
+    console.log("SCAN PAGE LOADED");
     app.innerHTML = `
 
         <section class="scan-page">
 
-            <h1>Plant Disease Scanner</h1>
+            <h1>
+                Plant Disease Scanner
+            </h1>
 
             <p class="scan-subtitle">
                 Upload a clear image of a plant leaf to detect diseases.
             </p>
+
 
             <div class="upload-box">
 
@@ -21,31 +25,53 @@ export function loadScan() {
                     hidden
                 >
 
-                <label for="plantImage" class="upload-label">
+
+                <label
+                    for="plantImage"
+                    class="upload-label">
+
                     📷 Click to Upload Image
+
                 </label>
+
 
                 <div id="imagePreview"></div>
 
             </div>
 
-            <button id="scanBtn" class="scan-btn">
+
+            <button
+                type="button"
+                id="scanBtn"
+                class="scan-btn">
+
                 Scan Plant
+
             </button>
+
 
             <div id="scanResult" class="scan-result">
 
-                <p>No scan performed yet.</p>
+                <p>
+                    No scan performed yet.
+                </p>
 
             </div>
+
 
         </section>
 
     `;
-    
-    const plantImage = document.getElementById("plantImage");
 
+
+    const plantImage = document.getElementById("plantImage");
     const imagePreview = document.getElementById("imagePreview");
+    const scanBtn = document.getElementById("scanBtn");
+    const scanResult = document.getElementById("scanResult");
+
+
+
+    // Image Preview
 
     plantImage.addEventListener("change", () => {
 
@@ -53,45 +79,137 @@ export function loadScan() {
 
         if (!file) return;
 
+
         const imageURL = URL.createObjectURL(file);
 
+
         imagePreview.innerHTML = `
-            <img src="${imageURL}" alt="Plant Image">
+
+            <img
+                src="${imageURL}"
+                alt="Plant Image">
+
         `;
 
     });
-    const scanBtn = document.getElementById("scanBtn");
 
-    scanBtn.addEventListener("click", () => {
 
-        if (!plantImage.files[0]) {
+
+
+
+    // Scan Button
+
+    scanBtn.onclick = async (event) => {
+
+
+        event.preventDefault();
+
+
+        console.log("SCAN BUTTON CLICKED");
+
+
+        const file = plantImage.files[0];
+
+
+        if (!file) {
 
             alert("Please upload an image first.");
             return;
 
         }
 
-        const scanResult = document.getElementById("scanResult");
+
 
         scanResult.innerHTML = `
-            <p>🔄 Scanning your plant...</p>
+
+            <p>
+                🔄 Scanning your plant...
+            </p>
+
         `;
+
+
+
         const formData = new FormData();
 
-formData.append("image", plantImage.files[0]);
+        formData.append("image", file);
 
-fetch("http://127.0.0.1:5000/predict", {
-    method: "POST",
-    body: formData
-})
-.then(response => response.json())
-.then(data => {
 
-    scanResult.innerHTML = `
-        <h3>${data.message}</h3>
-    `;
 
-});
+        try {
 
-    });
+
+            console.log("BEFORE FETCH");
+
+
+            const response = await fetch(
+
+                "http://localhost:5000/predict",
+
+                {
+
+                    method: "POST",
+
+                    body: formData
+
+                }
+
+            );
+
+
+
+            console.log("AFTER FETCH");
+            
+
+
+            console.log("STATUS:", response.status);
+
+
+
+            const data = await response.json();
+
+
+
+            console.log("SERVER RESPONSE:", data);
+
+
+
+            scanResult.innerHTML = `
+
+    <h3>
+        ✅ ${data.message}
+    </h3>
+
+`;
+
+
+
+            console.log("RESULT DISPLAYED");
+            event.stopPropagation();
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error("ERROR:", error);
+
+
+            scanResult.innerHTML = `
+
+                <p>
+                    ❌ Failed to connect to backend.
+                </p>
+
+            `;
+
+
+        }
+
+
+    };
+
+
 }
