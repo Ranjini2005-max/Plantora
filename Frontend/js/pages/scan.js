@@ -174,13 +174,57 @@ export function loadScan() {
 
 
 
-            scanResult.innerHTML = `
+           const parts = data.disease.split("___");
 
-    <h3>
-        ✅ ${data.message}
-    </h3>
+const plantName = parts[0].replace(/_/g, " ");
+const diseaseName = parts[1]
+    ? parts[1].replace(/_/g, " ")
+    : "Unknown";
 
+const isHealthy = diseaseName.toLowerCase() === "healthy";
+
+scanResult.innerHTML = `
+    <h3>🌱 Plant: ${plantName}</h3>
+
+    <p>
+        ${isHealthy
+            ? "✅ Plant appears healthy"
+            : `⚠️ Disease: ${diseaseName}`
+        }
+    </p>
+
+    <p>
+        🎯 Confidence: ${data.confidence}%
+    </p>
+
+    <hr>
+
+    <h4>🔍 Symptoms</h4>
+    <p>${data.info.symptoms}</p>
+
+    <h4>🦠 Cause</h4>
+    <p>${data.info.cause}</p>
+
+    <h4>💊 Treatment</h4>
+    <p>${data.info.treatment}</p>
+
+    <h4>🛡️ Prevention</h4>
+    <p>${data.info.prevention}</p>
+
+    <button type="button" id="scanAgainBtn" class="scan-again-btn">
+        🔄 Scan Another Image
+    </button>
 `;
+
+const scanAgainBtn = document.getElementById("scanAgainBtn");
+
+scanAgainBtn.addEventListener("click", () => {
+    plantImage.value = "";
+    imagePreview.innerHTML = "";
+    scanResult.innerHTML = `
+        <p>No scan performed yet.</p>
+    `;
+});
 
 
 
