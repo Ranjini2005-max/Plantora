@@ -1,3 +1,6 @@
+import { addHistory } from "../services/plantsService.js";
+import { auth } from "../firebase.js";
+
 const app = document.getElementById("app");
 
 export function loadScan() {
@@ -119,7 +122,7 @@ export function loadScan() {
         }
 
 
-
+        
         scanResult.innerHTML = `
 
             <p>
@@ -183,6 +186,30 @@ const diseaseName = parts[1]
 
 const isHealthy = diseaseName.toLowerCase() === "healthy";
 
+try {
+
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.error("No logged-in user found.");
+        return;
+    }
+
+    await addHistory({
+        userId: user.uid,
+        plantName: plantName,
+        disease: diseaseName,
+        confidence: data.confidence,
+        date: new Date().toISOString()
+    });
+
+    console.log("Scan saved to History");
+
+} catch (error) {
+
+    console.error("Failed to save scan to History:", error);
+
+}
 scanResult.innerHTML = `
     <h3>🌱 Plant: ${plantName}</h3>
 

@@ -2,7 +2,7 @@ import { loadLanding } from "./pages/landing.js";
 import { loadHome } from "./pages/home.js";
 import { loadMyPlants } from "./pages/myPlants.js";
 import { loadScan } from "./pages/scan.js";
-
+import { loadHistory } from "./pages/history.js";
 
 
 export function showPage(page) {
@@ -37,8 +37,14 @@ export function showPage(page) {
 
         case "scan":
             
-
             loadScan();
+
+            break;
+            
+
+        case "history":
+
+            loadHistory();
 
             break;
 

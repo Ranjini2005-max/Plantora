@@ -77,6 +77,12 @@ export function showSidebar() {
         showPage("plants");
 
     });
+    document.getElementById("historyLink")
+?.addEventListener("click", () => {
+
+    showPage("history");
+
+});
 
 
 }

@@ -1,4 +1,4 @@
-import { db } from "../firebase.js";
+import { db, auth } from "../firebase.js";
 
 import {
     collection,
@@ -7,10 +7,14 @@ import {
     getDoc,
     deleteDoc,
     doc,
-    updateDoc
+    updateDoc,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const plantsCollection = collection(db, "plants");
+const historyCollection = collection(db, "history");
+
 
 export async function addPlant(plant) {
 
@@ -29,6 +33,8 @@ export async function addPlant(plant) {
     }
 
 }
+
+
 export async function getPlants() {
 
     const snapshot = await getDocs(plantsCollection);
@@ -39,30 +45,86 @@ export async function getPlants() {
     }));
 
 }
+
+
 export async function deletePlant(id) {
 
     await deleteDoc(doc(db, "plants", id));
 
 }
+
+
 export async function getPlant(id) {
 
     const docRef = doc(db, "plants", id);
 
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
 
-    return {
-        id: docSnap.id,
-        ...docSnap.data()
-    };
+        return {
+            id: docSnap.id,
+            ...docSnap.data()
+        };
 
     }
 
     return null;
 
 }
+
+
 export async function editPlant(id, plant) {
+
     const docRef = doc(db, "plants", id);
 
     await updateDoc(docRef, plant);
+
+}
+
+
+// Add scan to History
+
+export async function addHistory(scan) {
+
+    console.log("Inside addHistory()", scan);
+
+    try {
+
+        await addDoc(historyCollection, scan);
+
+        console.log("Scan added to History successfully");
+
+    } catch (error) {
+
+        console.error("History Firestore Error:", error);
+
+    }
+
+}
+
+
+// Get scan History
+
+export async function getHistory() {
+
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.error("No logged-in user found.");
+        return [];
+    }
+
+    const historyQuery = query(
+        historyCollection,
+        where("userId", "==", user.uid)
+    );
+
+    const snapshot = await getDocs(historyQuery);
+
+    return snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
 }
