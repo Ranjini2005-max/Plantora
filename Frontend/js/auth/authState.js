@@ -32,9 +32,9 @@ onAuthStateChanged(auth, (user) => {
 
         if (app && app.innerHTML.trim() === "") {
 
-            showPage("home");
+    showPage("landing");
 
-        }
+}
 
 
     } 
