@@ -624,3 +624,55 @@ button {
     margin-right:8px;
     margin-top:5px;
 }
+/* ---------- Care Tips Page ---------- */
+
+.care-tips-page{
+    max-width:1000px;
+    margin:20px auto;
+}
+
+.care-tips-page h1{
+    font-size:2rem;
+    color:#2E7D32;
+    margin-bottom:8px;
+}
+
+.care-tips-subtitle{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.care-tips-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:20px;
+}
+
+.care-tip-card{
+    background:white;
+    padding:25px;
+    border-radius:14px;
+    border:1px solid #e0e8e0;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    transition:0.2s;
+}
+
+.care-tip-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 15px rgba(0,0,0,0.1);
+}
+
+.care-tip-icon{
+    font-size:32px;
+    margin-bottom:12px;
+}
+
+.care-tip-card h3{
+    color:#2E7D32;
+    margin-bottom:10px;
+}
+
+.care-tip-card p{
+    color:#555;
+    line-height:1.6;
+}

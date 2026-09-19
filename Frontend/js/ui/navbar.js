@@ -83,6 +83,12 @@ export function showSidebar() {
     showPage("history");
 
 });
+document.getElementById("tipsLink")
+?.addEventListener("click", () => {
+
+    showPage("tips");
+
+});
 
 
 }
