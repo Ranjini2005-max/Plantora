@@ -9,9 +9,8 @@ export async function loadHistory() {
 
         <section class="history-page">
 
-            <h1>
-                Scan History
-            </h1>
+            <h1>Scan History</h1>
+            <p id="historyCount" class="history-count">Total Scans: 0</p>
 
             <p class="history-subtitle">
                 View your previous plant disease scans.
@@ -37,8 +36,10 @@ export async function loadHistory() {
     try {
 
         const history = await getHistory();
+        history.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-
+        document.getElementById("historyCount").textContent =
+    `Total Scans: ${history.length}`;
         if (history.length === 0) {
 
             historyContainer.innerHTML = `

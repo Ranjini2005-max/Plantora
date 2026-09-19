@@ -532,3 +532,63 @@ button {
     cursor: pointer;
     font-size: 15px;
 }
+/* ---------- History Page ---------- */
+
+.history-page{
+    max-width:900px;
+    margin:20px auto;
+}
+
+.history-page h1{
+    font-size:2rem;
+    margin-bottom:8px;
+}
+
+.history-subtitle{
+    color:#666;
+    margin-bottom:25px;
+}
+
+.history-card{
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:12px;
+    border:1px solid #e0e8e0;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    transition:0.2s;
+}
+
+.history-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 14px rgba(0,0,0,0.1);
+}
+
+.history-card h3{
+    color:#2E7D32;
+    margin-bottom:12px;
+}
+
+.history-card p{
+    margin:8px 0;
+    color:#555;
+}
+
+.empty-history{
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.empty-history p:first-child{
+    font-size:18px;
+    color:#2E7D32;
+    margin-bottom:8px;
+}
+.history-count{
+    color:#2E7D32;
+    font-weight:600;
+    margin-bottom:20px;
+}
