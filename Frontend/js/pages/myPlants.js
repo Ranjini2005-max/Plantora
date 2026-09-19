@@ -7,6 +7,9 @@ import {
 } from "../services/plantsService.js";
 
 let editingPlantId = null;
+
+
+// Show Add/Edit Plant Form
 function showPlantForm() {
 
     const plantForm = document.getElementById("plantForm");
@@ -18,10 +21,14 @@ function showPlantForm() {
     plantForm.innerHTML = `
         <div class="plant-form-row">
 
-            <input type="text" id="plantName" placeholder="Plant Name">
+            <input
+                type="text"
+                id="plantName"
+                placeholder="Plant Name"
+            >
 
             <button id="savePlantBtn" class="btn">
-                Save Plant
+                ${editingPlantId ? "Update Plant" : "Save Plant"}
             </button>
 
             <button id="cancelPlantBtn" class="btn">
@@ -30,11 +37,17 @@ function showPlantForm() {
 
         </div>
     `;
-    document.getElementById("savePlantBtn").addEventListener("click", async () => {
+
+
+    // Save / Update Plant
+    document
+        .getElementById("savePlantBtn")
+        .addEventListener("click", async () => {
 
             try {
 
-                const plantName = document.getElementById("plantName").value;
+                const plantName =
+                    document.getElementById("plantName").value;
 
                 if (plantName.trim() === "") {
                     alert("Please enter a plant name.");
@@ -45,21 +58,32 @@ function showPlantForm() {
                     name: plantName
                 };
 
+
+                // Update existing plant
                 if (editingPlantId) {
 
-                    await updatePlant(editingPlantId, plant);
+                    await updatePlant(
+                        editingPlantId,
+                        plant
+                    );
 
-                } else {
+                }
+
+                // Add new plant
+                else {
 
                     await addPlant(plant);
 
                 }
 
+
                 editingPlantId = null;
 
                 loadMyPlants();
 
-            } catch (error) {
+            }
+
+            catch (error) {
 
                 console.error(error);
 
@@ -69,27 +93,45 @@ function showPlantForm() {
 
         });
 
+
+    // Cancel
+    document
+        .getElementById("cancelPlantBtn")
+        .addEventListener("click", () => {
+
+            editingPlantId = null;
+
+            plantForm.innerHTML = "";
+
+        });
+
 }
 
+
+// Edit Plant
 async function editPlant(id) {
 
     const plant = await getPlant(id);
 
-editingPlantId = id;
+    if (!plant) {
+        alert("Plant not found.");
+        return;
+    }
 
-showPlantForm();
+    editingPlantId = id;
 
-document.getElementById("plantName").value = plant.name;
+    showPlantForm();
 
-document.getElementById("savePlantBtn").textContent = "Update Plant";
+    document.getElementById("plantName").value =
+        plant.name;
 
-console.log(plant);
+    document.getElementById("savePlantBtn").textContent =
+        "Update Plant";
 
-    document.getElementById("savePlantBtn").textContent = "Update Plant";
-
-    console.log(plant);
 }
 
+
+// Load My Plants Page
 export async function loadMyPlants() {
 
     const app = document.getElementById("app");
@@ -110,85 +152,130 @@ export async function loadMyPlants() {
         </section>
     `;
 
-    const plants = await getPlants();
 
-    const plantsContainer = document.getElementById("plantsContainer");
+    const plantsContainer =
+        document.getElementById("plantsContainer");
 
-    plantsContainer.innerHTML = "";
 
-    plants.forEach((plant) => {
+    try {
 
-        plantsContainer.innerHTML += `
+        const plants = await getPlants();
+
+        plantsContainer.innerHTML = "";
+
+
+        // No plants
+        if (plants.length === 0) {
+
+            plantsContainer.innerHTML = `
+                <div class="plant-card">
+                    <p>No plants added yet.</p>
+                </div>
+            `;
+
+        }
+
+
+        // Display plants
+        plants.forEach((plant) => {
+
+            plantsContainer.innerHTML += `
+                <div class="plant-card">
+
+                    <h3>🌱 ${plant.name}</h3>
+
+                    <button
+                        class="editPlantBtn btn"
+                        data-id="${plant.id}">
+                        Edit
+                    </button>
+
+                    <button
+                        class="deletePlantBtn btn"
+                        data-id="${plant.id}">
+                        Delete
+                    </button>
+
+                </div>
+            `;
+
+        });
+
+
+        // Delete Plant
+        document
+            .querySelectorAll(".deletePlantBtn")
+            .forEach((button) => {
+
+                button.addEventListener(
+                    "click",
+                    async () => {
+
+                        const confirmDelete = confirm(
+                            "Are you sure you want to delete this plant?"
+                        );
+
+                        if (!confirmDelete) {
+                            return;
+                        }
+
+                        await deletePlant(
+                            button.dataset.id
+                        );
+
+                        loadMyPlants();
+
+                    }
+                );
+
+            });
+
+
+        // Edit Plant
+        document
+            .querySelectorAll(".editPlantBtn")
+            .forEach((button) => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        editPlant(
+                            button.dataset.id
+                        );
+
+                    }
+                );
+
+            });
+
+
+        // Add Plant Button
+        document
+            .getElementById("addPlantBtn")
+            .addEventListener("click", () => {
+
+                editingPlantId = null;
+
+                showPlantForm();
+
+            });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error loading plants:",
+            error
+        );
+
+        plantsContainer.innerHTML = `
             <div class="plant-card">
-
-                <h3>🌱 ${plant.name}</h3>
-
-                <button class="editPlantBtn btn" data-id="${plant.id}">
-                    Edit
-                </button>
-
-                <button class="deletePlantBtn btn" data-id="${plant.id}">
-                    Delete
-                </button>
-
+                <p>❌ Failed to load plants.</p>
             </div>
         `;
 
-    });
-
-    // Delete Plant
-    document.querySelectorAll(".deletePlantBtn").forEach((button) => {
-
-        button.addEventListener("click", async () => {
-
-            const confirmDelete = confirm("Are you sure you want to delete this plant?");
-
-            if (!confirmDelete) {
-                return;
-            }
-
-            await deletePlant(button.dataset.id);
-
-            loadMyPlants();
-
-        });
-
-    });
-
-    // Edit Plant
-    document.querySelectorAll(".editPlantBtn").forEach((button) => {
-
-        button.addEventListener("click", () => {
-
-            editPlant(button.dataset.id);
-
-        });
-
-    });
-
-    console.table(plants);
-
-    // Add Plant Button
-    document.getElementById("addPlantBtn").addEventListener("click", () => {
-
-        showPlantForm();
-
-        // If editing, show Update button text
-        if (editingPlantId) {
-            document.getElementById("savePlantBtn").textContent = "Update Plant";
-        }
-
-        // Save / Update
-
-        // Cancel
-        document.getElementById("cancelPlantBtn").addEventListener("click", () => {
-
-            editingPlantId = null;
-
-            document.getElementById("plantForm").innerHTML = "";
-
-        });
-
-    });
+    }
 
 }
