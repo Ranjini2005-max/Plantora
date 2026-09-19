@@ -89,6 +89,12 @@ document.getElementById("tipsLink")
     showPage("tips");
 
 });
+document.getElementById("profileLink")
+?.addEventListener("click", () => {
+
+    showPage("profile");
+
+});
 
 
 }

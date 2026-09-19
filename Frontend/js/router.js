@@ -4,6 +4,7 @@ import { loadMyPlants } from "./pages/myPlants.js";
 import { loadScan } from "./pages/scan.js";
 import { loadHistory } from "./pages/history.js";
 import { loadCareTips } from "./pages/careTips.js";
+import { loadProfile } from "./pages/profile.js";
 
 export function showPage(page) {
 
@@ -47,11 +48,18 @@ export function showPage(page) {
             loadHistory();
 
             break;
-            
+
 
         case "tips":
 
             loadCareTips();
+
+            break;
+            
+
+        case "profile":
+
+            loadProfile();
 
             break;
 
